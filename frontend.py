@@ -30,9 +30,19 @@ if st.button("Predict Premium Category"):
         response = requests.post(API_URL, json=input_data)
         result = response.json()
 
-        if response.status_code == 200 and "Prediction_Category" in result:
-            prediction = result["Prediction_Category"]
+        if response.status_code == 200:
+            prediction = result["predicted_class"]
+            confidence = result["confidence"]
+            class_probs = result["class_probs"]
+            
+            # Display the prediction with confidence
             st.success(f"Predicted Insurance Premium Category: **{prediction}**")
+            st.info(f"Confidence: {confidence:.2%}")
+            
+            # Display probability distribution
+            st.subheader("Probability Distribution:")
+            for category, prob in class_probs.items():
+                st.write(f"{category}: {prob:.2%}")
         else:
             st.error(f"API Error: {response.status_code}")
             st.write(result)
