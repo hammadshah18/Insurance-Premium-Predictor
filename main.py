@@ -41,10 +41,11 @@ def predict_premium(data:userinput):
 
         prediction,confidence,probabilities=predict_output(user_input)
 
+        prediction_dict = predict_output(user_input)
         return prediction_response(
-            predicted_category=prediction,
-            confidence=confidence,
-            class_probabilites=probabilities
+            predicted_class=prediction_dict["predicted_class"],
+            confidence=prediction_dict["confidence"],
+            class_probs=prediction_dict["class_probs"]
         )
 
     except Exception as e:

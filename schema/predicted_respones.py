@@ -1,9 +1,9 @@
 from pydantic import BaseModel,Field
-from typing import Dict
+from typing import Dict,AnyStr
 
 
 class prediction_response(BaseModel):
-    predicted_category:str = Field(...,
+    predicted_class:str = Field(...,
                                    
         description="The Predict insurance category",
 
@@ -11,4 +11,4 @@ class prediction_response(BaseModel):
 
     confidence:float=Field(...,description="Model's Confidence Score for predicted class(range 0 to 1)",examples=[0.832])
 
-    class_probabilites:Dict[str,float]=Field(...,description="Probabilites distribution for all classes ",examples=[{"Low":0.01,"Medium":0.8,"high":0.9}])
+    class_probs:Dict[str,float]=Field(...,description="Probabilites distribution for all classes ",examples=[{"low":0.01,"medium":0.8,"high":0.9}])
